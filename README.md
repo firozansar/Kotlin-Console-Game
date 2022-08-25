@@ -1,6 +1,6 @@
 # Kotlin CLI sample
 
-Just a console application (up and running) used as a playground for trying Kotlin stuff out: new features, experiments, etc
+A sample Kotlin CLI app used as a playground for trying Kotlin stuff out: new features, experiments, etc.
 
 ## Running the sample
 
