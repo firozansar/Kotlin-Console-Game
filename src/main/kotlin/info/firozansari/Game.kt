@@ -26,7 +26,7 @@ class Game {
         TimeUnit.SECONDS.sleep(3L)
         var specialAttack = 6
 
-        fun attack(): String? {
+        fun getAttackChoice(): String? {
             println("\n\n${enemy.name}'s health: ${enemy.health}, ${player.name}'s health: ${player.health}\n(\"choose from the numbers below\")")
             println("1.Do a basic attack\n2.Do a special attack \"has a (1/$specialAttack) chance of working\"\n3.Heal up (current health packs = $hpPacks)\n: ")
             return readLine()
@@ -34,7 +34,7 @@ class Game {
 
         do {
             TimeUnit.SECONDS.sleep(2L)
-            val choice = attack()
+            val choice = getAttackChoice()
             TimeUnit.SECONDS.sleep(1L)
 
             when (choice) {
@@ -91,7 +91,7 @@ class Game {
                     println("_".repeat(30))
                     println("Invalid option!")
                     TimeUnit.SECONDS.sleep(2L)
-                    attack()
+                    getAttackChoice()
                     println("_".repeat(30))
                 }
             }
