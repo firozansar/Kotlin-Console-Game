@@ -1,11 +1,7 @@
-# Kotlin CLI sample
+# Kotlin Console Game
+ 
+Just a simple Kotlin Console game for fun.
 
-A sample Kotlin CLI app used as a playground for trying Kotlin stuff out: new features, experiments, etc.
-
-## Running the sample
-
-- `./gradlew run`
-- `./gradlew test`
 
 ## License
 

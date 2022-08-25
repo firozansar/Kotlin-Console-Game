@@ -9,11 +9,11 @@ class Game {
     var randChar: (Int, Int) -> Int = { min, max -> (min..max).random() }
     private var enemyList = listOf("Boss Cyto", "Boss Enzo", "Boss Goblin", "Boss Spider", "Spider", "Cyto", "Goblin", "Enzo")
     private val enemy = enemyList.random()
-    private var hp = if ("Boss" in enemy) (150..200).random() else 100
-    private var hpPacks = (1..3).random()
+    private var health = if ("Boss" in enemy) (150..200).random() else 100
+    private var healthPacks = (1..3).random()
 
     fun playGame(player: Player) {
-        val enemy = Player(enemy, hp)
+        val enemy = Player(enemy, health)
         player.health = if (randChar(1, 10) == 5) 125 else 100
         TimeUnit.SECONDS.sleep(1L)
         println("Welcome ${player.name} to this very epic dungeon game")
@@ -28,7 +28,7 @@ class Game {
 
         fun getAttackChoice(): String? {
             println("\n\n${enemy.name}'s health: ${enemy.health}, ${player.name}'s health: ${player.health}\n(\"choose from the numbers below\")")
-            println("1.Do a basic attack\n2.Do a special attack \"has a (1/$specialAttack) chance of working\"\n3.Heal up (current health packs = $hpPacks)\n: ")
+            println("1.Do a basic attack\n2.Do a special attack \"has a (1/$specialAttack) chance of working\"\n3.Heal up (current health packs = $healthPacks)\n: ")
             return readLine()
         }
 
@@ -76,11 +76,11 @@ class Game {
                 "3" -> {
                     println("_".repeat(30))
                     TimeUnit.SECONDS.sleep(1L)
-                    if (hpPacks > 0) {
+                    if (healthPacks > 0) {
                         println("Healing up by 25!")
                         TimeUnit.SECONDS.sleep(1L)
                         player.health += 25
-                        hpPacks -= 1
+                        healthPacks -= 1
                     } else {
                         println("You don't have enough health packs!")
                     }

@@ -1,2 +1,2 @@
-rootProject.name = "KotlinCliSample"
+rootProject.name = "Kotlin-Console-Game"
 
