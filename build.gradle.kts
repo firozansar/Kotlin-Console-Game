@@ -10,6 +10,10 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClass.set("$group.MainKt")
+}
+
 dependencies {
     implementation(kotlin("stdlib"))
 
