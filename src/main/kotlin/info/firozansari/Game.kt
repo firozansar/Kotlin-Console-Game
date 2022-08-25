@@ -107,6 +107,7 @@ class Game {
         println("${enemy.name} attacks!")
         val rand = randChar(1, 6)
         if (rand == 3) {
+            enemy.health -= randChar(10, 20)
             println("${enemy.name} missed!")
         } else {
             player.health -= randChar(10, 20)
