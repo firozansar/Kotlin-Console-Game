@@ -1,6 +1,7 @@
 package info.firozansari
 
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 class Game {
     var randChar: (Int, Int) -> Int = { min, max -> (min..max).random() }
@@ -101,6 +102,7 @@ class Game {
         } else {
             println("You both have tied!")
         }
+        exitProcess(1)
     }
 
     private fun isPlayerKilled(enemy: Player, player: Player): Boolean {
