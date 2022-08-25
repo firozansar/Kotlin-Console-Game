@@ -1,28 +1,25 @@
 package info.firozansari
 
-import java.util.*
 import java.util.concurrent.TimeUnit
-
-data class Player(val name: String?, var health: Int)
 
 class Game {
     var randChar: (Int, Int) -> Int = { min, max -> (min..max).random() }
     private var enemyList = listOf("Boss Cyto", "Boss Enzo", "Boss Goblin", "Boss Spider", "Spider", "Cyto", "Goblin", "Enzo")
     private val enemy = enemyList.random()
     private var health = if ("Boss" in enemy) (150..200).random() else 100
-    private var healthPacks = (1..3).random()
+    private var healthPacks = (1..5).random()
 
-    fun playGame(player: Player) {
+    fun play(player: Player) {
         val enemy = Player(enemy, health)
         player.health = if (randChar(1, 10) == 5) 125 else 100
         TimeUnit.SECONDS.sleep(1L)
-        println("Welcome ${player.name} to this very epic dungeon game")
+        println("Welcome ${player.name.capitalize()} to this exciting game!")
         TimeUnit.SECONDS.sleep(2L)
-        if (player.health == 125) println("\nyou're lucky! you just got 25+ hp!")
+        if (player.health == 125) println("\nYou are lucky! you just got 25+ health!")
         TimeUnit.SECONDS.sleep(2L)
-        println("\nOH no! a wild ${enemy.name?.uppercase(Locale.getDefault())} appears!")
+        println("\nOH no! a wild ${enemy.name.capitalize()} appears!")
         TimeUnit.SECONDS.sleep(2L)
-        println("\nGet ready for the fight ${player.name?.uppercase(Locale.getDefault())}!")
+        println("\nGet ready for the fight ${player.name.capitalize()}!")
         TimeUnit.SECONDS.sleep(3L)
         var specialAttack = 6
 
@@ -46,7 +43,7 @@ class Game {
                     }
                     println("_".repeat(30))
                     println("\nDoing a basic attack of 15! ${enemy.name}'s health is now ${enemy.health}")
-                    if (startAttacking(enemy, player)) break
+                    if (isPlayerKilled(enemy, player)) break
                 }
                 "2" -> {
                     println("_".repeat(30))
@@ -66,7 +63,7 @@ class Game {
                         TimeUnit.SECONDS.sleep(1L)
                         println("Oh no! Attack Failed!")
                         worked = false
-                        if (startAttacking(enemy, player)) break
+                        if (isPlayerKilled(enemy, player)) break
                     }
                     when (worked) {
                         true -> specialAttack = 6
@@ -106,7 +103,7 @@ class Game {
         }
     }
 
-    private fun startAttacking(enemy: Player, player: Player): Boolean {
+    private fun isPlayerKilled(enemy: Player, player: Player): Boolean {
         println("${enemy.name} attacks!")
         val rand = randChar(1, 6)
         if (rand == 3) {
