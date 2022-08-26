@@ -18,6 +18,8 @@ application {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation("com.github.ajalt.clikt:clikt:3.5.0")
+    implementation("com.github.ajalt.mordant:mordant:2.0.0-beta7")
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
