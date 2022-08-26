@@ -1,5 +1,8 @@
 package info.firozansari
 
+import info.firozansari.PrintFormat.DANGER
+import info.firozansari.PrintFormat.SUCCESS
+import info.firozansari.PrintFormat.WARNING
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -8,25 +11,25 @@ class Game {
     private var enemyList = listOf("Boss Cyto", "Boss Enzo", "Boss Goblin", "Boss Spider", "Spider", "Cyto", "Goblin", "Enzo")
     private val enemy = enemyList.random()
     private var health = if ("Boss" in enemy) (150..200).random() else 100
-    private var healthPacks = (1..5).random()
+    private var healthPacks = (1..4).random()
 
     fun play(player: Player) {
         val enemy = Player(enemy, health)
         player.health = if (randChar(1, 10) == 5) 125 else 100
         TimeUnit.SECONDS.sleep(1L)
-        println("Welcome ${player.name.capitalize()} to this exciting game!")
+        customPrint("Welcome ${player.name.capitalize()} to this exciting game!")
         TimeUnit.SECONDS.sleep(2L)
-        if (player.health == 125) println("\nYou are lucky! you just got 25+ health!")
+        if (player.health == 125) customPrint("\nYou are lucky! you just got 25+ health!")
         TimeUnit.SECONDS.sleep(2L)
-        println("\nOH no! a wild ${enemy.name.capitalize()} appears!")
+        customPrint("\nOh no! a wild ${enemy.name.capitalize()} appears!", DANGER)
         TimeUnit.SECONDS.sleep(2L)
-        println("\nGet ready for the fight ${player.name.capitalize()}!")
+        customPrint("\nGet ready for the fight ${player.name.capitalize()}!", WARNING)
         TimeUnit.SECONDS.sleep(3L)
         var specialAttack = 6
 
         fun getAttackChoice(): String? {
-            println("\n\n${enemy.name}'s health: ${enemy.health}, ${player.name}'s health: ${player.health}\n(\"choose from the numbers below\")")
-            println("1.Do a basic attack\n2.Do a special attack \"has a (1/$specialAttack) chance of working\"\n3.Heal up (current health packs = $healthPacks)\n: ")
+            customPrint("\n\n${enemy.name}'s health: ${enemy.health}, ${player.name}'s health: ${player.health}\n(\"choose from the numbers below\")")
+            customPrint("1.Do a basic attack\n2.Do a special attack \"has a (1/$specialAttack) chance of working\"\n3.Heal up (current health packs = $healthPacks)\n: ")
             return readLine()
         }
 
@@ -39,30 +42,30 @@ class Game {
                 "1" -> {
                     enemy.health -= 15
                     if (enemy.health <= 0) {
-                        println("\nWell done! You have managed to kill ${enemy.name}")
+                        customPrint("\nWell done! You have managed to kill ${enemy.name}", SUCCESS)
                         break
                     }
                     println("_".repeat(30))
-                    println("\nDoing a basic attack of 15! ${enemy.name}'s health is now ${enemy.health}")
+                    customPrint("\nDoing a basic attack of 15! ${enemy.name}'s health is now ${enemy.health}")
                     if (isPlayerKilled(enemy, player)) break
                 }
                 "2" -> {
                     println("_".repeat(30))
                     TimeUnit.SECONDS.sleep(1L)
-                    println("Trying a special attack!")
+                    customPrint("Trying a special attack!")
                     TimeUnit.SECONDS.sleep(1L)
                     var worked: Boolean
                     if ((1..specialAttack).random() == 1) {
                         worked = true
-                        println("Special attack worked!\nDecreasing the enemy's health by 40!")
+                        customPrint("Special attack worked!\nDecreasing the enemy's health by 40!")
                         enemy.health -= 40
                         if (enemy.health <= 0) {
-                            println("\nWell done! You have managed to kill ${enemy.name}")
+                            customPrint("\nWell done! You have managed to kill ${enemy.name}", SUCCESS)
                             break
                         }
                     } else {
                         TimeUnit.SECONDS.sleep(1L)
-                        println("Oh no! Attack Failed!")
+                        customPrint("Oh no! Attack Failed!", WARNING)
                         worked = false
                         if (isPlayerKilled(enemy, player)) break
                     }
@@ -75,19 +78,19 @@ class Game {
                     println("_".repeat(30))
                     TimeUnit.SECONDS.sleep(1L)
                     if (healthPacks > 0) {
-                        println("Healing up by 25!")
+                        customPrint("Healing up by 25!")
                         TimeUnit.SECONDS.sleep(1L)
                         player.health += 25
                         healthPacks -= 1
                     } else {
-                        println("You don't have enough health packs!")
+                        customPrint("You don't have enough health packs!")
                     }
                     println("_".repeat(30))
 
                 }
                 else -> {
                     println("_".repeat(30))
-                    println("Invalid option!")
+                    customPrint("Invalid option!")
                     TimeUnit.SECONDS.sleep(2L)
                     getAttackChoice()
                     println("_".repeat(30))
@@ -96,11 +99,11 @@ class Game {
         } while (enemy.health > 0 && player.health > 0)
 
         if (player.health <= 0) {
-            println("You have lost!")
+            customPrint("You have lost!", DANGER)
         } else if (enemy.health <= 0) {
-            println("Well done! You have won!")
+            customPrint("Well done! You have won!", SUCCESS)
         } else {
-            println("You both have tied!")
+            customPrint("You both have tied!")
         }
         exitProcess(1)
     }
@@ -110,14 +113,14 @@ class Game {
         val rand = randChar(1, 6)
         if (rand == 3) {
             enemy.health -= randChar(10, 20)
-            println("${enemy.name} missed!")
+            customPrint("${enemy.name} missed!", SUCCESS)
         } else {
             player.health -= randChar(10, 20)
             if (player.health <= 0) {
-                println("\n${enemy.name} has managed to kill you!")
+                customPrint("\n${enemy.name} has managed to kill you!", DANGER)
                 return true
             }
-            println("${enemy.name} managed to hit you!\nyour health is now ${player.health}!")
+            customPrint("${enemy.name} managed to hit you!\nyour health is now ${player.health}!", WARNING)
         }
         println("_".repeat(30))
         return false
