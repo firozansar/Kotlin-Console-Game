@@ -2,6 +2,9 @@
  
 Just a simple Kotlin Console game for fun.
 
+# How to play
+`./run.sh` (run `chmod +x run.sh` to make it executable for the first time)
+
 
 ## License
 
